@@ -17,15 +17,7 @@ const options = {
       version: "1.0.0",
       description: "API Documentation",
     },
-    servers: [
-      //   {
-      //     url: process.env.PUBLIC_SERVER_URL,
-      //   },
-      //   {
-      //     url: process.env.SERVER_URL,
-      //   },
-      { url: "http://localhost:5000" },
-    ],
+    servers: [{ url: process.env.SERVER_URL }],
   },
   apis: ["./routes/*.js"],
 };
@@ -37,10 +29,11 @@ app.use(express.json());
 
 app.use(upload());
 
-app.use(cors());
+app.use(cors({ origin: "*" }));
 
 app.use("/api/event", require("./routes/event"));
 app.use("/api/indexSwap", require("./routes/indexSwap"));
+app.use("/api/file", require("./routes/file"));
 
 mongoose
   .connect(

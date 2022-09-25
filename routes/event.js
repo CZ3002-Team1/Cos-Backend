@@ -2,95 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Event = require("../model/Event");
 require("dotenv").config();
-const upload = require("express-fileupload");
-
-const AWS = require("aws-sdk");
-
-// const multer = require("multer");
-// const upload = multer({ dest: "uploads/" });
-
-const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY,
-});
-
-const uploadFile = async (file) => {
-  // const { createReadStream, filename } = await file;
-
-  const uploadParams = {
-    Bucket: process.env.AWS_S3_BUCKET_NAME,
-    Body: file.data,
-    Key: `fileupload/scanskill-${Date.now()}-${file.name}`,
-  };
-
-  try {
-    const data = await s3.upload(uploadParams).promise();
-    return data;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-/**
- * @swagger
- * api/event/uploadFile:
- *   post:
- *     summary: Upload image to AWS S3.
- *     tags: [Event]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               File:
- *                 type: string
- *                 description: Put the entire file here
- *     responses:
- *       200:
- *         description: File uploaded successfully. Returns url of image
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 message:
- *                   type: string
- *                 photoUrl:
- *                   type: string
- *
- *       400:
- *         description: Erorr with file upload
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 success:
- *                   type: boolean
- *                   example: false
- *                 message:
- *                   type: string
- */
-router.post("/uploadFile", async (req, res) => {
-  try {
-    const data = await uploadFile(req.files.File);
-
-    res.json({
-      success: true,
-      photoUrl: data.Location,
-    });
-  } catch (err) {
-    res.json({
-      success: false,
-      message: err,
-    });
-  }
-});
 
 /**
  * @swagger
@@ -188,7 +99,6 @@ router.post("/", async (req, res) => {
     data: event,
   });
 });
-
 
 /**
  * @swagger
