@@ -5,6 +5,9 @@ const IndexSwapSchema = new mongoose.Schema({
   StudentName: {
     type: String,
   },
+  Email: {
+    type: String,
+  },
   ModuleName: {
     type: String,
   },

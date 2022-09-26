@@ -27,6 +27,8 @@ const IndexSwap = require("../model/IndexSwap");
  *                 type: string
  *               PhoneNumber:
  *                 type: string
+ *               Email:
+ *                  type: string
  *               TeleHandle:
  *                 type: string
  *     responses:
@@ -57,6 +59,8 @@ const IndexSwap = require("../model/IndexSwap");
  *                       WantIndex:
  *                         type: string
  *                       PhoneNumber:
+ *                         type: string
+ *                       Email:
  *                         type: string
  *                       TeleHandle:
  *                         type: string
@@ -134,6 +138,8 @@ router.post("/", async (req, res) => {
  *                 type: string
  *               PhoneNumber:
  *                 type: string
+ *               Email:
+ *                 type: string
  *               TeleHandle:
  *                 type: string
  *     responses:
@@ -164,6 +170,8 @@ router.post("/", async (req, res) => {
  *                       WantIndex:
  *                         type: string
  *                       PhoneNumber:
+ *                         type: string
+ *                       Email:
  *                         type: string
  *                       TeleHandle:
  *                         type: string
@@ -252,6 +260,8 @@ router.put("/:id", async (req, res) => {
  *                         type: string
  *                       TeleHandle:
  *                         type: string
+ *                       Email:
+ *                         type: string
  *       404:
  *         description: No index swap requests found.
  *         content:
@@ -339,4 +349,81 @@ router.delete("/:id", async (req, res) => {
   });
 });
 
+/**
+ * @swagger
+ * api/indexSwap/:email:
+ *   get:
+ *     summary: Get all index swap requests by particular email.
+ *     tags: [IndexSwap]
+ *     parameters:
+ *       - in: path
+ *         name: email
+ *         required: true
+ *         description: Email of user
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Fetched Successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       StudentName:
+ *                         type: string
+ *                       ModuleName:
+ *                         type: string
+ *                       ModuleCode:
+ *                         type: string
+ *                       HaveIndex:
+ *                         type: string
+ *                       WantIndex:
+ *                         type: string
+ *                       PhoneNumber:
+ *                         type: string
+ *                       TeleHandle:
+ *                         type: string
+ *                       Email:
+ *                         type: string
+ *       404:
+ *         description: No index swap requests found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ */
+router.get("/:email", async (req, res) => {
+  const indexSwaps = await IndexSwap.find({
+    Email: req.params.email,
+  });
+  if (indexSwaps.length === 0) {
+    res.json({
+      success: false,
+      message: "No index swap requests found",
+    });
+  } else {
+    res.json({
+      success: true,
+      message: "Index swap requests found",
+      data: indexSwaps,
+    });
+  }
+});
 module.exports = router;

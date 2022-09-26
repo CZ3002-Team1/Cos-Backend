@@ -237,6 +237,8 @@ router.put("/:id", async (req, res) => {
  *                   items:
  *                     type: object
  *                     properties:
+ *                       _id:
+ *                         type: string
  *                       Name:
  *                         type: string
  *                       Description:

@@ -34,6 +34,8 @@ app.use(cors({ origin: "*" }));
 app.use("/api/event", require("./routes/event"));
 app.use("/api/indexSwap", require("./routes/indexSwap"));
 app.use("/api/file", require("./routes/file"));
+app.use("/api/auth", require("./routes/auth"));
+app.use("/api/merch", require("./routes/merch"));
 
 mongoose
   .connect(
