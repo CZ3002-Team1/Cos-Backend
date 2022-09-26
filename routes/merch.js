@@ -502,6 +502,7 @@ router.post(
 
         await sendMail(subject, text, session.customer_email);
 
+        res.send("Successful");
         break;
       default:
         console.log(`Unhandled event type ${event.type}`);
