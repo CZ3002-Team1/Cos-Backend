@@ -250,6 +250,7 @@ router.post("/register", async (req, res) => {
     Email: Email,
     Name: Name,
     PhoneNumber: PhoneNumber,
+    IsAdmin: user.IsAdmin,
   });
 
   res.json({
@@ -335,6 +336,7 @@ router.post("/login", async (req, res) => {
     Email: Email,
     Name: existingUser.Name,
     PhoneNumber: existingUser.PhoneNumber,
+    IsAdmin: existingUser.IsAdmin,
   });
 
   res.json({
