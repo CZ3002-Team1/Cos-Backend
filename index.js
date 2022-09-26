@@ -37,9 +37,9 @@ app.use("/api/file", require("./routes/file"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/merch", require("./routes/merch"));
 
-app.get('/', (req, res)=>{
-  res.send('hello')
-})
+app.get("/", (req, res) => {
+  res.send("hello");
+});
 
 mongoose
   .connect(
@@ -47,7 +47,7 @@ mongoose
   )
   .then((result) => {
     console.log("Connected to Database");
-    app.listen(PORT);
+    app.listen(process.env.PORT || PORT);
     console.log("Server listening on port " + PORT);
   })
   .catch((err) => console.log("err", err));
