@@ -37,6 +37,10 @@ app.use("/api/file", require("./routes/file"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/merch", require("./routes/merch"));
 
+app.get('/', (req, res)=>{
+  res.send('hello')
+})
+
 mongoose
   .connect(
     `mongodb+srv://costeam1:${process.env.MONGOPASSWORD}@cluster0.amabfnl.mongodb.net/?retryWrites=true&w=majority`
