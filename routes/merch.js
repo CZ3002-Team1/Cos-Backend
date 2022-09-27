@@ -502,6 +502,19 @@ router.post(
 
         await sendMail(subject, text, session.customer_email);
 
+        await Promise.all(
+          data.map(async (d) => {
+            await Merch.findOneAndUpdate(
+              {
+                Name: d.description,
+              },
+              {
+                Quantiy: Quantity - d.quantity,
+              }
+            );
+          })
+        );
+
         res.send("Successful");
         break;
       default:
