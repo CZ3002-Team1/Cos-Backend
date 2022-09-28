@@ -603,7 +603,7 @@ router.post(
           orderArray.push({
             Name: d.description,
             Quantity: d.quantity,
-            Price: d.price.unit_amount,
+            Price: d.price.unit_amount/100,
           });
           total_amount += (d.price.unit_amount / 100) * d.quantity;
           receipt += `<p>${d.quantity} x ${d.description} ($${
