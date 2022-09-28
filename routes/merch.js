@@ -603,6 +603,7 @@ router.post(
           orderArray.push({
             Name: d.description,
             Quantity: d.quantity,
+            Price: d.price.unit_amount,
           });
           total_amount += (d.price.unit_amount / 100) * d.quantity;
           receipt += `<p>${d.quantity} x ${d.description} ($${
@@ -644,7 +645,7 @@ router.post(
           Email: session.customer_email,
           Items: orderArray,
         });
-        
+
         await newOrder.save();
 
         res.send("Successful");
