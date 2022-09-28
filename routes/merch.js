@@ -331,9 +331,9 @@ router.get("/", async (req, res) => {
 
 /**
  * @swagger
- * api/merch:
+ * api/merch/:id:
  *   get:
- *     summary: Get all merches.
+ *     summary: Get all merch by id.
  *     tags: [Merch]
  *     responses:
  *       200:
@@ -483,6 +483,10 @@ router.delete("/:id", async (req, res) => {
  *                         type: string
  *                       Quantity:
  *                         type: number
+ *                       Size:
+ *                         type: string
+ *                       Color:
+ *                         type: string
  *               Email:
  *                 type: string
  *     responses:
@@ -523,7 +527,7 @@ router.post("/createCheckoutSession", async (req, res) => {
       });
 
       data.push({
-        Name: merch.Name,
+        Name: `${item.Color} ${merch.Name} (${item.Size})`,
         Price: merch.Price,
         BuyQuantity: item.Quantity,
       });
