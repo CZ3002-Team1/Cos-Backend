@@ -530,7 +530,7 @@ router.post("/createCheckoutSession", async (req, res) => {
       let appendedName = "";
       if (item.Color) {
         const capitalizeColor =
-          item.Color.charAt(0).toUpperCase() + string.slice(1);
+          item.Color.charAt(0).toUpperCase() + item.Color.slice(1);
         appendedName += capitalizeColor;
       }
       appendedName += ` ${merch.Name}`;
