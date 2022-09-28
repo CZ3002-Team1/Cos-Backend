@@ -46,8 +46,14 @@ const sendMail = async (subject, text, receiverEmail) => {
  *                 type: string
  *               Description:
  *                 type: string
- *               Size:
- *                 type: string
+ *               Sizes:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               Colors:
+ *                 type: array
+ *                 items:
+ *                   type: string
  *               Price:
  *                 type: number
  *               Quantity:
@@ -75,8 +81,14 @@ const sendMail = async (subject, text, receiverEmail) => {
  *                         type: string
  *                       Description:
  *                         type: string
- *                       Size:
- *                         type: string
+ *                       Sizes:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *                       Colors:
+ *                         type: array
+ *                         items:
+ *                           type: string
  *                       Price:
  *                         type: number
  *                       Quantity:
@@ -146,8 +158,14 @@ router.post("/", async (req, res) => {
  *                 type: string
  *               Description:
  *                 type: string
- *               Size:
- *                 type: string
+ *               Sizes:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               Colors:
+ *                 type: array
+ *                 items:
+ *                   type: string
  *               Price:
  *                 type: number
  *               Quantity:
@@ -175,8 +193,14 @@ router.post("/", async (req, res) => {
  *                         type: string
  *                       Description:
  *                         type: string
- *                       Size:
- *                         type: string
+ *                       Sizes:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *                       Colors:
+ *                         type: array
+ *                         items:
+ *                           type: string
  *                       Price:
  *                         type: number
  *                       Quantity:
@@ -261,8 +285,14 @@ router.put("/:id", async (req, res) => {
  *                         type: string
  *                       Description:
  *                         type: string
- *                       Size:
- *                         type: string
+ *                       Sizes:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *                       Colors:
+ *                         type: array
+ *                         items:
+ *                           type: string
  *                       Price:
  *                         type: number
  *                       Quantity:
@@ -295,6 +325,80 @@ router.get("/", async (req, res) => {
       success: true,
       message: "Merches found",
       data: merches,
+    });
+  }
+});
+
+/**
+ * @swagger
+ * api/merch:
+ *   get:
+ *     summary: Get all merches.
+ *     tags: [Merch]
+ *     responses:
+ *       200:
+ *         description: Fetched Successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                     Name:
+ *                       type: string
+ *                     Description:
+ *                       type: string
+ *                     Sizes:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     Colors:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     Price:
+ *                       type: number
+ *                     Quantity:
+ *                       type: number
+ *                     PhotoUrl:
+ *                       type: string
+ *
+ *       404:
+ *         description: No merches found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: false
+ *                 message:
+ *                   type: string
+ */
+router.get("/:id", async (req, res) => {
+  const merch = await Merch.findOne({
+    _id: req.params.id,
+  });
+  if (!merch) {
+    res.json({
+      success: false,
+      message: "No merch found",
+    });
+  } else {
+    res.json({
+      success: true,
+      message: "Merch found",
+      data: merch,
     });
   }
 });

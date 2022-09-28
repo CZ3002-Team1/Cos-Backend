@@ -8,18 +8,24 @@ const MerchSchema = new mongoose.Schema({
   Description: {
     type: String,
   },
-  Size: {
-    type: String,
+  Sizes: {
+    type: Array,
+  },
+  Colors: {
+    type: Array,
   },
   PhotoUrl: {
     type: String,
   },
-  Price:{
-    type: Number
+  Price: {
+    type: Number,
   },
-  Quantity:{
-    type: Number
-  }
+  Quantity: {
+    type: Number,
+  },
+  Type: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Merch", MerchSchema);
