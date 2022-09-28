@@ -509,7 +509,9 @@ router.post(
                 Name: d.description,
               },
               {
-                Quantiy: Quantity - d.quantity,
+                $inc: {
+                  Quantity: -d.quantity,
+                },
               }
             );
           })
