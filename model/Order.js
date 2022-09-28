@@ -12,6 +12,10 @@ const OrderSchema = new mongoose.Schema({
     type: String,
     default: "Processing",
   },
+  DateCreated: {
+    type: Date,
+    default: new Date()
+  }
 });
 
 module.exports = mongoose.model("Order", OrderSchema);

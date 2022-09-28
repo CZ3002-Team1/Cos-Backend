@@ -36,6 +36,7 @@ app.use("/api/indexSwap", require("./routes/indexSwap"));
 app.use("/api/file", require("./routes/file"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/merch", require("./routes/merch"));
+app.use("/api/order", require("./routes/order"));
 
 app.get("/", (req, res) => {
   res.send("hello");
