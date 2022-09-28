@@ -529,7 +529,9 @@ router.post("/createCheckoutSession", async (req, res) => {
 
       let appendedName = "";
       if (item.Color) {
-        appendedName += item.Color;
+        const capitalizeColor =
+          item.Color.charAt(0).toUpperCase() + string.slice(1);
+        appendedName += capitalizeColor;
       }
       appendedName += ` ${merch.Name}`;
       if (item.Size) {
@@ -603,7 +605,7 @@ router.post(
           orderArray.push({
             Name: d.description,
             Quantity: d.quantity,
-            Price: d.price.unit_amount/100,
+            Price: d.price.unit_amount / 100,
           });
           total_amount += (d.price.unit_amount / 100) * d.quantity;
           receipt += `<p>${d.quantity} x ${d.description} ($${

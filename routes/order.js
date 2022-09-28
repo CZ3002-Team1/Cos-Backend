@@ -57,7 +57,7 @@ require("dotenv").config();
  *
  *
  *       404:
- *         description: No events found.
+ *         description: No orders found.
  *         content:
  *           application/json:
  *             schema:
