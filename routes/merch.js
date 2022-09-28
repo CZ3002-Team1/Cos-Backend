@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Merch = require("../model/Merch");
+const Order = require("../model/Order");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 const bodyParser = require("body-parser");
@@ -526,8 +527,17 @@ router.post("/createCheckoutSession", async (req, res) => {
         _id: item.Id,
       });
 
+      let appendedName = "";
+      if (item.Color) {
+        appendedName += item.Color;
+      }
+      appendedName += ` ${merch.Name}`;
+      if (item.Size) {
+        appendedName += ` (${item.Size})`;
+      }
+
       data.push({
-        Name: `${item.Color} ${merch.Name} (${item.Size})`,
+        Name: appendedName,
         Price: merch.Price,
         BuyQuantity: item.Quantity,
       });
@@ -588,7 +598,12 @@ router.post(
 
         let receipt = "";
         let total_amount = 0;
+        const orderArray = [];
         data.map((d) => {
+          orderArray.push({
+            Name: d.description,
+            Quantity: d.quantity,
+          });
           total_amount += (d.price.unit_amount / 100) * d.quantity;
           receipt += `<p>${d.quantity} x ${d.description} ($${
             d.price.unit_amount / 100
@@ -624,6 +639,13 @@ router.post(
             );
           })
         );
+
+        const newOrder = new Order({
+          Email: session.customer_email,
+          Items: orderArray,
+        });
+        
+        await newOrder.save();
 
         res.send("Successful");
         break;

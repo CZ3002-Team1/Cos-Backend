@@ -10,6 +10,7 @@ const OrderSchema = new mongoose.Schema({
   },
   Status: {
     type: String,
+    default: "Processing"
   },
 });
 
