@@ -565,8 +565,8 @@ router.post("/createCheckoutSession", async (req, res) => {
       }),
       //   success_url: `${process.env.CLIENT_URL}/success.html`,
       //   cancel_url: `${process.env.CLIENT_URL}/cancel.html`,
-      success_url: `http://google.com`,
-      cancel_url: `http://google.com`,
+      success_url: `${process.env.CLIENT_URL}/Cart/success`,
+      cancel_url: `${process.env.CLIENT_URL}/Cart`,
     });
     res.json({
       success: true,
@@ -628,20 +628,20 @@ router.post(
 
         await sendMail(subject, text, session.customer_email);
 
-        await Promise.all(
-          data.map(async (d) => {
-            await Merch.findOneAndUpdate(
-              {
-                Name: d.description,
-              },
-              {
-                $inc: {
-                  Quantity: -d.quantity,
-                },
-              }
-            );
-          })
-        );
+        // await Promise.all(
+        //   data.map(async (d) => {
+        //     await Merch.findOneAndUpdate(
+        //       {
+        //         Name: d.description,
+        //       },
+        //       {
+        //         $inc: {
+        //           Quantity: -d.quantity,
+        //         },
+        //       }
+        //     );
+        //   })
+        // );
 
         const newOrder = new Order({
           Email: session.customer_email,
