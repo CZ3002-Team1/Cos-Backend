@@ -28,7 +28,7 @@ const uploadFile = async (file) => {
 
 /**
  * @swagger
- * api/event/uploadFile:
+ * api/file/uploadFile:
  *   post:
  *     summary: Upload image to AWS S3.
  *     tags: [File]
