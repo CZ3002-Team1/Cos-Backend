@@ -191,21 +191,21 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   const indexSwapData = req.body;
 
-  const findDuplicate = await IndexSwap.findOne({
-    StudentName: indexSwapData.StudentName,
-    ModuleName: indexSwapData.ModuleName,
-    ModuleCode: indexSwapData.ModuleCode,
-    HaveIndex: indexSwapData.HaveIndex,
-    WantIndex: indexSwapData.WantIndex,
-  });
+  // const findDuplicate = await IndexSwap.findOne({
+  //   StudentName: indexSwapData.StudentName,
+  //   ModuleName: indexSwapData.ModuleName,
+  //   ModuleCode: indexSwapData.ModuleCode,
+  //   HaveIndex: indexSwapData.HaveIndex,
+  //   WantIndex: indexSwapData.WantIndex,
+  // });
 
-  if (findDuplicate) {
-    res.json({
-      success: false,
-      message: "Index Swap request already exists",
-    });
-    return;
-  }
+  // if (findDuplicate) {
+  //   res.json({
+  //     success: false,
+  //     message: "Index Swap request already exists",
+  //   });
+  //   return;
+  // }
 
   const updatedIndex = await IndexSwap.findOneAndUpdate(
     { _id: req.params.id },
